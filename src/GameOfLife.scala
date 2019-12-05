@@ -14,8 +14,9 @@ object GameOfLife extends App {
     neighborsArray += universe(row-1)(col+1)
     neighborsArray += universe(row)(col-1)
     neighborsArray += universe(row)(col+1)
-    neighborsArray += universe(row-1)(col-1)
+    neighborsArray += universe(row+1)(col-1)
     neighborsArray += universe(row+1)(col+1)
+    neighborsArray += universe(row+1)(col)
     return neighborsArray.filter(n => n == "X" || n == "-").toArray
   }
 
@@ -32,10 +33,10 @@ object GameOfLife extends App {
 
   def setNextStateOfLiveCell(neighbors: Array[String]): String = {
     val noOfAliveNeighbors = neighbors.filter(x => x == "-").length
-    if(noOfAliveNeighbors < 2 && noOfAliveNeighbors > 3){
-      return "X"
+    if(noOfAliveNeighbors == 2 || noOfAliveNeighbors == 3){
+      return "-"
     }
-    return "-"
+    return "X"
   }
 
   def nextStateOfCell(row: Int, col: Int): String = {
@@ -74,7 +75,6 @@ object GameOfLife extends App {
     }
     print("\n")
   }
-//
   for (i <- 1 until boundLength-1){
     for (j <- 1 until boundBreadth-1){
       universeNext(i)(j) = nextStateOfCell(i, j)
@@ -87,6 +87,5 @@ object GameOfLife extends App {
     }
     print("\n")
   }
+
 }
-
-
